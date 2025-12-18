@@ -26,7 +26,6 @@ def check_scraping_access(url):
         result["robots_allowed"] = rp.can_fetch(HEADERS["User-Agent"], url)
     except Exception:
         result["robots_allowed"] = "unknown"
-
     # 2️⃣ Test réel de requête
     try:
         response = requests.get(url, headers=HEADERS, timeout=10)
