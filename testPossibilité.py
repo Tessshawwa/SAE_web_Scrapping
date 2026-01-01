@@ -53,7 +53,7 @@ def check_scraping_access(url):
 
     return result
 
-url = "https://https://anilist.co"
+url = "https://anilist.co"
 info = check_scraping_access(url)
 
 for k, v in info.items():
