@@ -1,1 +1,283 @@
+import requests
 
+from bs4 import BeautifulSoup
+
+import pandas as pd
+
+import re
+
+import io
+
+
+
+years = [2020, 2021, 2022, 2023, 2024]
+
+base_url = "https://en.wikipedia.org/wiki/{}_in_video_games"
+
+
+
+headers = {'User-Agent': 'ProjetEtudiantScraping/FinalV3'}
+
+final_data = []
+
+
+
+VALID_MONTHS = ["January", "February", "March", "April", "May", "June", 
+
+                "July", "August", "September", "October", "November", "December"]
+
+
+
+print(f"Démarrage du scraping (Mode Optimisé Pandas)...")
+
+
+
+for year in years:
+
+    url = base_url.format(year)
+
+    print(f"\n--- Traitement de l'année {year} ---")
+
+    
+
+    try:
+
+        response = requests.get(url, headers=headers, timeout=10)
+
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        
+
+        tables = soup.find_all('table', {'class': 'wikitable'})
+
+        print(f"   {len(tables)} tableaux wikitable trouvés")
+
+        
+
+        current_month = "January"
+
+        
+
+        for table in tables:
+
+            try:
+
+                dfs = pd.read_html(io.StringIO(str(table)), flavor='bs4')
+
+                if not dfs: continue
+
+                df_table = dfs[0]
+
+            except Exception:
+
+                continue
+
+
+
+            df_table.columns = [str(c).lower() for c in df_table.columns]
+
+            cols = df_table.columns.tolist()
+
+
+
+            has_title = any("title" in c or "game" in c for c in cols)
+
+            has_date = any("date" in c or "release" in c or "day" in c for c in cols)
+
+            
+
+            if not has_title or not has_date:
+
+                continue
+
+            
+
+            if any("franchise" in c for c in cols) or any("network" in c for c in cols):
+
+                continue
+
+
+
+            df_table = df_table.ffill()
+
+
+
+            col_title = next((c for c in cols if "title" in c or "game" in c), None)
+
+            col_date = next((c for c in cols if "date" in c or "release" in c or "day" in c), None)
+
+            col_dev = next((c for c in cols if "developer" in c), None)
+
+            col_pub = next((c for c in cols if "publisher" in c), None)
+
+            col_plat = next((c for c in cols if "platform" in c or "console" in c), None)
+
+            col_genre = next((c for c in cols if "genre" in c), None)
+
+
+
+            if not col_title: continue
+
+
+
+            records = df_table.to_dict('records')
+
+
+
+            for row in records:
+
+                try:
+
+                    title = str(row.get(col_title, "N/A"))
+
+                    
+
+                    title = re.sub(r'\[.*?\]', '', title).strip()
+
+                    
+
+                    if title.lower() in ["nan", "n/a", "title", "unscheduled", "tba", ""]:
+
+                        continue
+
+
+
+                    raw_date = str(row.get(col_date, ""))
+
+                    for month in VALID_MONTHS:
+
+                        if month in raw_date:
+
+                            current_month = month
+
+                            break
+
+                    
+
+                    dev = str(row.get(col_dev, "N/A"))
+
+                    pub = str(row.get(col_pub, "N/A"))
+
+                    plat = str(row.get(col_plat, "N/A"))
+
+                    genre = str(row.get(col_genre, "N/A"))
+
+
+
+                    dev = re.sub(r'\[.*?\]', '', dev).strip()
+
+                    pub = re.sub(r'\[.*?\]', '', pub).strip()
+
+                    plat = re.sub(r'\[.*?\]', '', plat).strip()
+
+                    genre = re.sub(r'\[.*?\]', '', genre).strip()
+
+                    
+
+                    if dev.lower() == 'nan': dev = "N/A"
+
+                    if pub.lower() == 'nan': pub = "N/A"
+
+                    if plat.lower() == 'nan': plat = "N/A"
+
+                    if genre.lower() == 'nan': genre = "N/A"
+
+
+
+                    # Filtre : on ne garde que les jeux qui ont un genre valide
+
+                    if genre == "N/A" or genre.lower() in ["", "nan"]:
+
+                        continue
+
+
+
+                    final_data.append({
+
+                        'Month': current_month,
+
+                        'Year': year,
+
+                        'Title': title,
+
+                        'Genre': genre,
+
+                        'Developer': dev,
+
+                        'Publisher': pub,
+
+                        'Platform': plat
+
+                    })
+
+
+
+                except Exception as e:
+
+                    continue
+
+            
+
+            print(f"      {len(records)} lignes traitées dans ce tableau")
+
+
+
+    except Exception as e:
+
+        print(f"   Erreur sur {year}: {e}")
+
+
+
+# --- EXPORT ---
+
+if len(final_data) > 0:
+
+    df = pd.DataFrame(final_data)
+
+    
+
+    # Suppression des doublons stricts (même titre, même plateforme, même année)
+
+    df = df.drop_duplicates(subset=['Title', 'Platform', 'Year'], keep='first')
+
+    
+
+    # Suppression des doublons de titres uniquement (garde la première occurrence)
+
+    df = df.drop_duplicates(subset=['Title'], keep='first')
+
+    
+
+    # Réorganisation
+
+    cols = ['Month', 'Year', 'Title', 'Genre', 'Developer', 'Publisher', 'Platform']
+
+    df = df[cols]
+
+
+
+    print(f"\n{'='*50}")
+
+    print(f"TOTAL GLOBAL : {len(df)} jeux récupérés (avec genre valide).")
+
+    print(f"{'='*50}")
+
+    
+
+    filename = 'jeux_complets_corriges.csv'
+
+    df.to_csv(filename, index=False, encoding='utf-8-sig', sep=';')
+
+    print(f"Fichier '{filename}' créé !")
+
+    
+
+    print(f"\nAperçu des données :")
+
+    print(df[['Title', 'Genre', 'Developer', 'Publisher']].head(10).to_string(index=False))
+
+else:
+
+    print("\nAucune donnée.")
