@@ -2,6 +2,7 @@ import requests
 import urllib.robotparser as robotparser
 from urllib.parse import urlparse
 
+# CC
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; ResearchBot/1.0; +https://example.com/bot-info)"
 }
