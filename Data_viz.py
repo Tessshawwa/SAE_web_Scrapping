@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import pearsonr
 import numpy as np
+import matplotlib.ticker as ticker
 # 1: Chargement des données
 path = r'L:\BUT\SD\Promo 2024\talshawwa\SAE_web_Scrapping\Data_JV.csv'
 df = pd.read_csv(path, sep=';', encoding='latin1')
@@ -154,6 +155,13 @@ sns.scatterplot(data=df_clean, x='Playtime_Num', y='Metascore',
 # AJOUT : Échelle logarithmique sur l'axe X
 plt.xscale('log')
 
+
+# 2. AJOUTER ces lignes pour changer le format des étiquettes (10^1 -> 10)
+plt.gca().xaxis.set_major_formatter(ticker.ScalarFormatter())
+
+# 3. FACULTATIF : Forcer des paliers spécifiques pour plus de clarté
+plt.xticks([1, 10, 50, 100, 250], ['1h', '10h', '50h', '100h', '250h'])
+
 # AJOUT : Courbe LOESS (Tendance non-linéaire souple)
 sns.regplot(data=df_clean, x='Playtime_Num', y='Metascore', 
             scatter=False, color='red')
@@ -183,7 +191,7 @@ dev_stats = df.groupby('Developpeur').agg({'Metascore': ['mean', 'count']})
 dev_stats.columns = ['Score_Moyen', 'Nombre_Jeux']
 
 # Filtrer pour les studios avec au moins 3 jeux et trier
-top_rated = dev_stats[dev_stats['Nombre_Jeux'] > 2].sort_values(by='Score_Moyen', ascending=False).head(10)
+top_rated = dev_stats[dev_stats['Nombre_Jeux'] > 2].sort_values(by='Score_Moyen', ascending=False).head(8)
 
 plt.figure(figsize=(14, 8))
 
@@ -200,12 +208,43 @@ plt.xlabel('Studio de Développement', fontsize=12)
 plt.xticks(rotation=45, ha='right') 
 
 # Ajout des étiquettes de score 
+# Updated loop to show decimals (ex: 87.4 instead of 87)
 for i, v in enumerate(top_rated['Score_Moyen']):
     plt.text(i, v + 0.5, f"{v:.1f}", ha='center', fontweight='bold')
 
 plt.tight_layout()
 plt.savefig('final_top_qualite_vertical.png')
 print("Graphique vertical de qualité sauvegardé !")
+
+
+
+# --- VIZ : Nombre de jeux par Développeur par tranches de 5 ans (Empilé) ---
+print("Génération du graphique empilé Développeurs/Tranches...")
+
+# 1. Sélectionner les Top 10 développeurs (en excluant les noms non informatifs)
+df_clean_dev = df[~df['Developpeur'].isin(['Unknown', 'N/A', 'nan', 'TBA'])]
+top_10_devs = df_clean_dev['Developpeur'].value_counts().head(10).index
+df_top_dev = df_clean_dev[df_clean_dev['Developpeur'].isin(top_10_devs)].copy()
+
+# 2. Préparer les données (Table croisée)
+stacked_dev_data = df_top_dev.groupby(['Tranche_Années', 'Developpeur']).size().unstack(fill_value=0)
+
+# 3. Création du graphique
+plt.figure(figsize=(14, 8))
+# 'stacked=True' pour empiler les développeurs par tranche d'année
+stacked_dev_data.plot(kind='bar', stacked=True, ax=plt.gca(), colormap='viridis')
+
+# 4. Étiquettes et mise en forme
+plt.title('Production des Top 10 Développeurs par tranches de 5 ans', fontsize=14)
+plt.xlabel('Période (Tranche de 5 ans)', fontsize=12)
+plt.ylabel('Nombre de jeux développés', fontsize=12)
+plt.xticks(rotation=45)
+plt.legend(title='Développeurs', bbox_to_anchor=(1.05, 1), loc='upper left')
+
+plt.tight_layout()
+plt.savefig('developpeurs_empiles_par_tranche.png')
+print("Graphique empilé sauvegardé : developpeurs_empiles_par_tranche.png")
+
 
 
 print("Fini !")
