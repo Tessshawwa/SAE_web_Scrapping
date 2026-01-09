@@ -175,16 +175,37 @@ plt.savefig('correlation_top_level.png')
 print(f"Graphique amélioré sauvegardé ! Corrélation calculée : {corr:.2f}")
 
 
-# --- 6. VIZ : QUALITÉ DES STUDIOS (METASCORE MOYEN) ---
+# --- VIZ : QUALITÉ DES STUDIOS (BARRES VERTICALES & COULEURS INVERSÉES) ---
+print("Génération du graphique de qualité (Vertical)...")
+
+# Groupement par développeur et calcul de la moyenne
 dev_stats = df.groupby('Developpeur').agg({'Metascore': ['mean', 'count']})
 dev_stats.columns = ['Score_Moyen', 'Nombre_Jeux']
+
+# Filtrer pour les studios avec au moins 3 jeux et trier
 top_rated = dev_stats[dev_stats['Nombre_Jeux'] > 2].sort_values(by='Score_Moyen', ascending=False).head(10)
 
-plt.figure()
-sns.barplot(x=top_rated['Score_Moyen'], y=top_rated.index, hue=top_rated.index, palette='RdYlGn', legend=False)
-plt.xlim(70, 100)
-plt.title('Top 10 Studios par Qualité (Min. 3 jeux)')
-plt.savefig('final_top_qualite.png')
+plt.figure(figsize=(14, 8))
+
+# Changement : x=index (noms), y=values (scores) pour verticalité
+# Changement : palette 'RdYlGn_r' pour passer du vert (haut) au rouge (bas)
+sns.barplot(x=top_rated.index, y=top_rated['Score_Moyen'], hue=top_rated.index, 
+            palette='RdYlGn_r', legend=False)
+
+# Réglages des axes
+plt.ylim(70, 100) # Zoom sur la zone de haute qualité
+plt.title('Top 10 Studios par Qualité (Score Moyen - Min. 3 jeux)', fontsize=14)
+plt.ylabel('Score Metascore Moyen', fontsize=12)
+plt.xlabel('Studio de Développement', fontsize=12)
+plt.xticks(rotation=45, ha='right') # Rotation des noms pour lisibilité
+
+# Ajout des étiquettes de score au-dessus des barres
+for i, v in enumerate(top_rated['Score_Moyen']):
+    plt.text(i, v + 0.5, f"{v:.1f}", ha='center', fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('final_top_qualite_vertical.png')
+print("Graphique vertical de qualité sauvegardé !")
 
 
 print("Fini !")
