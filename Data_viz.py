@@ -31,7 +31,7 @@ min_year = df['Annee'].min()
 max_year = df['Annee'].max()
 # On crée des paliers tous les 5 ans
 bins = list(range(int(min_year), int(max_year) + 6, 5))
-labels = [f"{i}-{i+4}" for i in bins[:-1]]
+labels = [f"{i}-{i+3}" for i in bins[:-1]]
 
 df['Tranche_Années'] = pd.cut(df['Annee'], bins=bins, right=False, labels=labels)
 
@@ -51,7 +51,7 @@ plt.plot(range(len(evolution_grouped)), evolution_grouped.values,
          color='#4a77b4', marker='o', linewidth=3, label='Tendance')
 
 # Étiquettes et mise en forme
-plt.title('Volume de sorties et Tendance par tranches de 5 ans', fontsize=14)
+plt.title('Volume de sorties et Tendance par tranches de 3 ans', fontsize=14)
 plt.xlabel('Période', fontsize=12)
 plt.ylabel('Nombre total de jeux', fontsize=12)
 plt.xticks(rotation=45)
@@ -218,15 +218,15 @@ print("Graphique vertical de qualité sauvegardé !")
 
 
 
-# --- VIZ : Nombre de jeux par Développeur par tranches de 5 ans (Empilé) ---
+# --- VIZ : Nombre de jeux par Développeur par tranches de 5 ans 
 print("Génération du graphique empilé Développeurs/Tranches...")
 
-# 1. Sélectionner les Top 10 développeurs (en excluant les noms non informatifs)
+# 1. Sélectionner les Top 10 développeurs 
 df_clean_dev = df[~df['Developpeur'].isin(['Unknown', 'N/A', 'nan', 'TBA'])]
 top_10_devs = df_clean_dev['Developpeur'].value_counts().head(10).index
 df_top_dev = df_clean_dev[df_clean_dev['Developpeur'].isin(top_10_devs)].copy()
 
-# 2. Préparer les données (Table croisée)
+# 2. Préparer les données 
 stacked_dev_data = df_top_dev.groupby(['Tranche_Années', 'Developpeur']).size().unstack(fill_value=0)
 
 # 3. Création du graphique
