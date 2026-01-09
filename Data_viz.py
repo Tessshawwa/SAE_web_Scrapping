@@ -65,7 +65,7 @@ print("Graphique combiné sauvegardé : evolution_5_ans_mixte.png")
 
 
 
-# --- VIZ 2: Top Développeurs ---
+# --- VIZ : Top Développeurs ---
 print("Génération du graphique des développeurs...")
 plt.figure(figsize=(12, 8))
 df_clean_dev = df[~df['Developpeur'].isin(['N/A', 'Unknown', 'nan', 'TBA'])]
@@ -81,7 +81,7 @@ for index, value in enumerate(top_devs.values):
 plt.tight_layout()
 plt.savefig('top_developpeurs_final.png')
 
-# --- VIZ 3: Top Genres ---
+# --- VIZ : Top Genres ---
 print("Génération du graphique des genres...")
 df_genres = df[df['Genres'].notna()]
 all_genres = df_genres['Genres'].str.split(', ').explode()
@@ -100,7 +100,7 @@ plt.savefig('top_genres_final.png')
 
 
 
-# --- VIZ 4: Heatmap de Saisonnalité ---
+# --- VIZ : Heatmap de Saisonnalité ---
 print("Génération de la heatmap...")
 
 # Nettoyage de la colonne "mois"
@@ -131,7 +131,7 @@ plt.xlabel('Année')
 
 plt.savefig('heatmap_finale_fr.png')
 
-# --- VIZ 5: Corrélation Score vs Temps de Jeu ---
+# --- VIZ : Corrélation Score vs Temps de Jeu ---
 
 # Extraction des chiffres du temps de jeu 
 df['Playtime_Num'] = df['Temps moyen de jeu'].str.extract('(\d+)').astype(float)
@@ -175,7 +175,7 @@ plt.savefig('correlation_top_level.png')
 print(f"Graphique amélioré sauvegardé ! Corrélation calculée : {corr:.2f}")
 
 
-# --- VIZ : QUALITÉ DES STUDIOS (BARRES VERTICALES & COULEURS INVERSÉES) ---
+# --- VIZ : QUALITÉ DES STUDIOS---
 print("Génération du graphique de qualité (Vertical)...")
 
 # Groupement par développeur et calcul de la moyenne
@@ -193,13 +193,13 @@ sns.barplot(x=top_rated.index, y=top_rated['Score_Moyen'], hue=top_rated.index,
             palette='RdYlGn_r', legend=False)
 
 # Réglages des axes
-plt.ylim(70, 100) # Zoom sur la zone de haute qualité
+plt.ylim(70, 100) 
 plt.title('Top 10 Studios par Qualité (Score Moyen - Min. 3 jeux)', fontsize=14)
 plt.ylabel('Score Metascore Moyen', fontsize=12)
 plt.xlabel('Studio de Développement', fontsize=12)
-plt.xticks(rotation=45, ha='right') # Rotation des noms pour lisibilité
+plt.xticks(rotation=45, ha='right') 
 
-# Ajout des étiquettes de score au-dessus des barres
+# Ajout des étiquettes de score 
 for i, v in enumerate(top_rated['Score_Moyen']):
     plt.text(i, v + 0.5, f"{v:.1f}", ha='center', fontweight='bold')
 
