@@ -5,7 +5,7 @@ from scipy.stats import pearsonr
 import numpy as np
 import matplotlib.ticker as ticker
 # 1: Chargement des données
-path = r'L:\BUT\SD\Promo 2024\talshawwa\SAE_web_Scrapping\Data_JV.csv'
+path = r'Data_JV.csv'
 df = pd.read_csv(path, sep=';', encoding='latin1')
 
 
@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 1. Chargement des données 
-path = r'L:\BUT\SD\Promo 2024\talshawwa\SAE_web_Scrapping\Data_JV.csv'
+path = r'Data_JV.csv'
 df = pd.read_csv(path, sep=';', encoding='latin1')
 
 
