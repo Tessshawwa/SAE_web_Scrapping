@@ -10,12 +10,18 @@ Les données passent par un filtrage strict (rejet des données incomplètes) et
 
 Collecte automatisée : Navigation via Selenium pour gérer la pagination dynamique et extraction rapide des métadonnées avec BeautifulSoup.
 
+
 Filtrage Mode Strict : Le script rejette automatiquement tout jeu possédant une variable manquante (NaN) pour éviter de fausser les calculs de moyennes.
 
+
 Nettoyage Intelligent :
+
 Transformation des dates brutes en format structuré (Mois et Année séparés).
+
 Harmonisation des genres et suppression des caractères spéciaux.
+
 Gestion des erreurs et sauvegardes régulières pour éviter la perte de données en cours de route.
+
 
 Export : Génération d'un dataset final propre au format .xlsx.
 
@@ -88,11 +94,18 @@ Genres Dominants : Le genre Action domine largement la production (1868 titres),
 Nous avons réparti les tâches de la manière suivante :
 
 Tasnim Alshawwa :
+
 Extraction (10%) : Participation à la définition des variables.
+
 Traitement (20%) : Support sur la gestion des données.
+
 Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final.
 
+
 Violette Grosjean :
+
 Extraction (90%) : Développement du script de scraping, gestion des erreurs et filtrage des jeux.
+
 Traitement (80%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes.
+
 Visualisation (10%) : Commentaires et interprétations complémentaires sur les graphiques.
