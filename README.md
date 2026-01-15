@@ -1,3 +1,92 @@
-# SAE_web_Scrapping
-🎮 Collecte et Analyse de l'Industrie du Jeu Vidéo (RAWG.io)Ce projet est un outil de Web Scraping et d'analyse de données conçu pour extraire, nettoyer et explorer l'histoire de l'industrie vidéoludique (1980-2024) à partir de l'agrégateur de données RAWG.io1111.L'objectif est de croiser les volumes de sortie, les notes critiques (Metascore), les temps de jeu et les stratégies des studios pour déchiffrer les grandes tendances du secteur2. Le script applique un filtrage strict pour ne conserver que les données complètes ("Jeux Parfaits") afin de garantir la fiabilité des analyses statistiques33.🚀 FonctionnalitésCollecte Automatisée (Scraping) :Navigation automatique via Selenium pour gérer la pagination dynamique et le défilement infini.Extraction hybride avec BeautifulSoup pour parser le HTML rapidement.Gestion intelligente des erreurs et des temps de pause pour respecter les serveurs cibles4.Filtrage "Strict Mode" :Le script rejette automatiquement tout jeu possédant une donnée manquante (NaN).Seuls les jeux possédant Titre, Genres, Date, Développeur, Éditeur, Metascore et Temps de jeu sont conservés pour éviter de fausser les moyennes5.Nettoyage et Transformation (ETL) :Traduction et harmonisation des dates (Mois/Année) en français6.Conversion des formats de texte brut en données tabulaires structurées.Sécurisation :Système de sauvegarde automatique (backup_x_parfaits.xlsx) en cours d'exécution pour prévenir les pertes de données en cas de crash (ex: déconnexion Colab).🛠️ Installation1. PrérequisCe projet est optimisé pour fonctionner dans un environnement Google Colab ou une machine Linux avec Chrome installé.Python 3.8+Google Chrome & Chromedriver (géré automatiquement par le script).2. Installation des dépendancesLe script installe automatiquement les paquets nécessaires au démarrage. Si vous l'exécutez localement, utilisez :Bashpip install selenium pandas openpyxl beautifulsoup4 webdriver-manager
-⚙️ Structure du Projetscraping_rawg.py (ou notebook) : Le script unique qui orchestre la collecte, le filtrage strict et le nettoyage.Jeux_RAWG_{N}.xlsx : Le fichier de sortie final contenant le dataset nettoyé (où N est le nombre de jeux récupérés).Rapport.pdf : Analyse détaillée des tendances observées (Saisonnalité, Qualité vs Durée, Top Studios).🚀 UtilisationLancez le script dans votre environnement Python (recommandé : Google Colab pour la gestion des drivers headless).Le script va :Collecter les URLs via la pagination.Visiter chaque page de jeu pour extraire les métadonnées.Filtrer et nettoyer les données en temps réel.Afficher une barre de progression avec estimation du temps restant (ETA).À la fin du processus, le fichier Excel est généré et téléchargé automatiquement.📊 Données TraitéesLe dataset final (.xlsx) contient les colonnes suivantes, prêtes pour l'analyse :Titre : Nom du jeu vidéo7.Metascore : Note critique agrégée (sur 100)8.Mois & Annee : Date de sortie traitée et traduite en français (ex: "Septembre", 2015)9.Genres : Catégories du jeu (ex: Action, RPG, Indie)10.Temps moyen de jeu : Durée estimée par la communauté (convertie pour l'analyse)11.Developpeur : Studio de développement principal12.Editeur : L'entité responsable de la publication.URL : Lien source vers la page RAWG du jeu.📈 Résultats de l'AnalyseLe traitement de ces données a permis de mettre en évidence plusieurs dynamiques clés dans le rapport joint :Explosion du volume : Une croissance exponentielle des sorties, passant de moins de 50 jeux/5 ans (1995) à plus de 1000 (2015-2019)13131313.Qualité vs Durée : Une légère corrélation positive ($r=0.28$) entre la durée de vie et la note critique14141414.Saisonnalité : Une concentration très forte des sorties en Septembre et Octobre15.Dominance des genres : Le genre "Action" domine largement la production, suivi de l'Aventure et de l'Indé16.👥 Répartition du travailProjet réalisé en binôme avec une séparation des tâches techniques et analytiques :
+# Collecte et Traitement de données RAWG.io
+
+Ce projet est un outil de Web Scraping conçu pour extraire, nettoyer et centraliser des informations historiques sur les jeux vidéo depuis la plateforme de référence RAWG.io.
+
+L'objectif est de constituer une base de données fiable couvrant la période 1980-2024 afin d'analyser l'évolution de l'industrie : volume de sorties, notes critiques, temps de jeu et stratégies des studios.
+
+Les données passent par un filtrage strict (rejet des données incomplètes) et un processus de nettoyage avant d'être exportées dans un fichier Excel exploitable pour de l'analyse statistique.
+
+# Fonctionnalités
+
+Collecte automatisée : Navigation via Selenium pour gérer la pagination dynamique et extraction rapide des métadonnées avec BeautifulSoup.
+
+Filtrage Mode Strict : Le script rejette automatiquement tout jeu possédant une variable manquante (NaN) pour éviter de fausser les calculs de moyennes.
+
+Nettoyage Intelligent :
+Transformation des dates brutes en format structuré (Mois et Année séparés).
+Harmonisation des genres et suppression des caractères spéciaux.
+Gestion des erreurs et sauvegardes régulières pour éviter la perte de données en cours de route.
+
+Export : Génération d'un dataset final propre au format .xlsx.
+
+# Installation
+
+1. Prérequis
+Assurez-vous d'avoir Python 3.8 ou supérieur et le navigateur Google Chrome installés. Le script gère automatiquement le téléchargement du driver.
+
+2. Cloner le projet
+git clone https://github.com/votre-compte/votre-projet.git
+
+3. Installer les bibliothèques
+Le projet utilise les bibliothèques suivantes pour le pilotage du navigateur et la manipulation des données :
+
+pip install selenium pandas openpyxl beautifulsoup4 webdriver-manager
+
+# Structure des fichiers
+
+scraping_rawg.py : Script principal orchestrant la collecte, le filtrage et le nettoyage.
+Jeux_RAWG.xlsx : Fichier de sortie contenant le dataset final nettoyé.
+Rapport scraping.pdf : Rapport d'analyse complet détaillant les tendances observées.
+backup_parfaits.xlsx : Fichiers de sauvegarde générés automatiquement durant l'exécution pour la sécurité.
+
+# Utilisation
+
+Lancez le script de collecte :
+
+python scraping_rawg.py
+
+Le script va :
+Parcourir les pages du site RAWG.io.
+Extraire les informations techniques (Titre, Metascore, Editeur, Développeur, etc.).
+Filtrer les jeux incomplets en temps réel.
+Afficher une estimation du temps restant.
+
+Une fois terminé, le fichier Excel final sera généré à la racine du dossier.
+
+# Données traitées
+
+Le dataset final inclut les colonnes suivantes :
+
+Titre : Nom du jeu vidéo.
+Metascore : Note de presse agrégée (sur 100).
+Mois et Annee : Date de sortie traitée pour l'analyse temporelle.
+Genres : Catégories du jeu (ex: Action, Aventure).
+Temps moyen de jeu : Durée estimée par la communauté.
+Developpeur : Studio de développement principal.
+Editeur : L'entité responsable de la publication.
+
+# Résultats de l'analyse
+
+L'exploitation des données a permis de mettre en évidence plusieurs tendances détaillées dans le rapport PDF :
+
+Explosion du Volume : Une croissance marquée des sorties, passant de moins de 200 jeux (2000-2004) à plus de 1000 jeux sur la période 2015-2019.
+
+Qualité vs Durée : Une légère corrélation positive (r=0.28) indique que les jeux durant plus de 20h tendent à avoir de meilleures notes critiques, bien que la variabilité soit forte pour les jeux courts.
+
+Saisonnalité : Une concentration systématique des sorties en septembre et octobre, reflétant une stratégie commerciale pour les fêtes de fin d'année.
+
+Genres Dominants : Le genre Action domine largement la production (1868 titres), suivi de l'Aventure et de l'Indie.
+
+# Répartition du travail
+
+Nous avons réparti les tâches de la manière suivante :
+
+Violette Grosjean :
+Extraction (90%) : Développement du script de scraping, gestion des erreurs et filtrage des jeux[cite: 321].
+Traitement (80%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes[cite: 325].
+]Visualisation (10%) : Commentaires et interprétations complémentaires sur les graphiques[cite: 328].
+
+Tasnim Alshawwa :
+]Extraction (10%) : Participation à la définition des variables[cite: 320].
+Traitement (20%) : Support sur la gestion des données[cite: 324].
+Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final[cite: 327].
