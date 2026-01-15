@@ -5,7 +5,7 @@ from scipy.stats import pearsonr
 import numpy as np
 import matplotlib.ticker as ticker
 # 1: Chargement des données
-path = r'Data_JV.csv'
+path = r'DATA/Data_JV.csv'
 df = pd.read_csv(path, sep=';', encoding='latin1')
 
 
@@ -16,10 +16,6 @@ df['Annee'] = df['Annee'].astype(int)
 # Configuration esthétique globale
 sns.set_theme(style="whitegrid")
 plt.rcParams['figure.figsize'] = [12, 6]
-
-# 1. Chargement des données 
-path = r'Data_JV.csv'
-df = pd.read_csv(path, sep=';', encoding='latin1')
 
 
 # 3. Création des tranches de 5 ans
