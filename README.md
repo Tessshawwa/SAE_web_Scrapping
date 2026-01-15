@@ -28,12 +28,12 @@ Export : Génération d'un dataset final propre au format .xlsx.
 Assurez-vous d'avoir Python 3.8 ou supérieur et le navigateur Google Chrome installés. Le script gère automatiquement le téléchargement du driver.
 
 2. Cloner le projet
-git clone https://github.com/votre-compte/votre-projet.git
+git clone https://github.com/Tessshawwa/SAE_web_Scrapping
 
 3. Installer les bibliothèques
 Le projet utilise les bibliothèques suivantes pour le pilotage du navigateur et la manipulation des données :
 
-pip install selenium pandas openpyxl beautifulsoup4 webdriver-manager
+pip install -r requirements.txt
 
 # Structure des fichiers
 
