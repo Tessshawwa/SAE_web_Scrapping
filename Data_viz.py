@@ -17,10 +17,6 @@ df['Annee'] = df['Annee'].astype(int)
 sns.set_theme(style="whitegrid")
 plt.rcParams['figure.figsize'] = [12, 6]
 
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # 1. Chargement des données 
 path = r'Data_JV.csv'
 df = pd.read_csv(path, sep=';', encoding='latin1')
