@@ -58,11 +58,17 @@ Une fois terminé, le fichier Excel final sera généré à la racine du dossier
 Le dataset final inclut les colonnes suivantes :
 
 Titre : Nom du jeu vidéo.
+
 Metascore : Note de presse agrégée (sur 100).
+
 Mois et Annee : Date de sortie traitée pour l'analyse temporelle.
+
 Genres : Catégories du jeu (ex: Action, Aventure).
+
 Temps moyen de jeu : Durée estimée par la communauté.
+
 Developpeur : Studio de développement principal.
+
 Editeur : L'entité responsable de la publication.
 
 # Résultats de l'analyse
