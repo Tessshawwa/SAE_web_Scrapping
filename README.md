@@ -82,11 +82,11 @@ Genres Dominants : Le genre Action domine largement la production (1868 titres),
 Nous avons réparti les tâches de la manière suivante :
 
 Violette Grosjean :
-Extraction (90%) : Développement du script de scraping, gestion des erreurs et filtrage des jeux[cite: 321].
-Traitement (80%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes[cite: 325].
-]Visualisation (10%) : Commentaires et interprétations complémentaires sur les graphiques[cite: 328].
+Extraction (90%) : Développement du script de scraping, gestion des erreurs et filtrage des jeux.
+Traitement (80%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes.
+]Visualisation (10%) : Commentaires et interprétations complémentaires sur les graphiques.
 
 Tasnim Alshawwa :
-]Extraction (10%) : Participation à la définition des variables[cite: 320].
-Traitement (20%) : Support sur la gestion des données[cite: 324].
-Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final[cite: 327].
+Extraction (10%) : Participation à la définition des variables.
+Traitement (20%) : Support sur la gestion des données.
+Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final.
