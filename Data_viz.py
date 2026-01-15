@@ -57,7 +57,7 @@ for i, v in enumerate(evolution_grouped.values):
     plt.text(i, v + 5, str(int(v)), ha='center', fontweight='bold', color='#2c3e50')
 
 plt.tight_layout()
-plt.savefig('evolution_5_ans_mixte.png')
+plt.savefig('IMAGE/evolution_5_ans_mixte.png')
 print("Graphique combiné sauvegardé : evolution_5_ans_mixte.png")
 
 
@@ -76,7 +76,7 @@ for index, value in enumerate(top_devs.values):
     plt.text(value + 0.1, index, str(value), va='center', fontweight='bold')
 
 plt.tight_layout()
-plt.savefig('top_developpeurs_final.png')
+plt.savefig('IMAGE/top_developpeurs_final.png')
 
 # --- VIZ : Top Genres ---
 print("Génération du graphique des genres...")
@@ -93,7 +93,7 @@ for index, value in enumerate(top_genres.values):
     plt.text(index, value + 2, str(value), ha='center', fontweight='bold')
 
 plt.tight_layout()
-plt.savefig('top_genres_final.png')
+plt.savefig('IMAGE/top_genres_final.png')
 
 
 
@@ -126,7 +126,7 @@ plt.title('Densité des sorties par mois et année', fontsize=14)
 plt.ylabel('Mois')
 plt.xlabel('Année')
 
-plt.savefig('heatmap_finale_fr.png')
+plt.savefig('IMAGE/heatmap_finale_fr.png')
 
 # --- VIZ : Corrélation Score vs Temps de Jeu ---
 
@@ -175,7 +175,7 @@ plt.grid(True, which="both", ls="-", alpha=0.5)
 plt.legend()
 
 plt.tight_layout()
-plt.savefig('correlation_top_level.png')
+plt.savefig('IMAGE/correlation_top_level.png')
 print(f"Graphique amélioré sauvegardé ! Corrélation calculée : {corr:.2f}")
 
 
@@ -209,7 +209,7 @@ for i, v in enumerate(top_rated['Score_Moyen']):
     plt.text(i, v + 0.5, f"{v:.1f}", ha='center', fontweight='bold')
 
 plt.tight_layout()
-plt.savefig('final_top_qualite_vertical.png')
+plt.savefig('IMAGE/final_top_qualite_vertical.png')
 print("Graphique vertical de qualité sauvegardé !")
 
 
@@ -238,7 +238,7 @@ plt.xticks(rotation=45)
 plt.legend(title='Développeurs', bbox_to_anchor=(1.05, 1), loc='upper left')
 
 plt.tight_layout()
-plt.savefig('developpeurs_empiles_par_tranche.png')
+plt.savefig('IMAGE/developpeurs_empiles_par_tranche.png')
 print("Graphique empilé sauvegardé : developpeurs_empiles_par_tranche.png")
 
 
