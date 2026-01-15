@@ -15,11 +15,8 @@ Filtrage Mode Strict : Le script rejette automatiquement tout jeu possédant une
 
 
 Nettoyage Intelligent :
-
 Transformation des dates brutes en format structuré (Mois et Année séparés).
-
 Harmonisation des genres et suppression des caractères spéciaux.
-
 Gestion des erreurs et sauvegardes régulières pour éviter la perte de données en cours de route.
 
 
@@ -100,6 +97,7 @@ Extraction (10%) : Participation à la définition des variables.
 Traitement (20%) : Support sur la gestion des données.
 
 Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final.
+
 
 
 Violette Grosjean :
