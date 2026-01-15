@@ -32,8 +32,9 @@ git clone https://github.com/Tessshawwa/SAE_web_Scrapping
 
 3. Installer les bibliothèques
 Le projet utilise les bibliothèques suivantes pour le pilotage du navigateur et la manipulation des données :
-
+```bash
 pip install -r requirements.txt
+```
 
 # Structure des fichiers
 
