@@ -39,9 +39,13 @@ pip install -r requirements.txt
 # Structure des fichiers
 
 scraping_rawg.py : Script principal orchestrant la collecte, le filtrage et le nettoyage.
+
 Jeux_RAWG.xlsx : Fichier de sortie contenant le dataset final nettoyé.
+
 Rapport scraping.pdf : Rapport d'analyse complet détaillant les tendances observées.
+
 backup_parfaits.xlsx : Fichiers de sauvegarde générés automatiquement durant l'exécution pour la sécurité.
+
 
 # Utilisation
 
