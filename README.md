@@ -24,6 +24,8 @@ Export : Génération d'un dataset final propre au format .xlsx.
 
 # Installation
 
+L'exécution du script a nécessité l'utilisation de Google Colab, une plateforme cloud proposée gratuitement par Google, pour plusieurs raisons techniques : elle fournit un environnement Linux préconfiguré permettant l'installation automatisée de Google Chrome, offre des ressources de calcul suffisantes pour un scraping de longue durée (plusieurs heures), et permet l'exécution distante du script sans monopoliser l'ordinateur personnel. De plus, Colab gère automatiquement les dépendances Python et propose des fonctionnalités de sauvegarde intégrées, essentielles pour sécuriser les données collectées en cas d'interruption de session.
+
 1. Prérequis
 Assurez-vous d'avoir Python 3.8 ou supérieur et le navigateur Google Chrome installés. Le script gère automatiquement le téléchargement du driver.
 
