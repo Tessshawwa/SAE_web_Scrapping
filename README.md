@@ -95,7 +95,7 @@ Tasnim Alshawwa :
 
 Extraction (10%) : Participation à la définition des variables.
 
-Traitement (20%) : Support sur la gestion des données.
+Traitement (30%) : Support sur la gestion des données.
 
 Visualisation (90%) : Création des graphiques, analyse des tendances et rédaction du rapport final.
 
@@ -105,6 +105,6 @@ Violette Grosjean :
 
 Extraction (90%) : Développement du script de scraping, gestion des erreurs et filtrage des jeux.
 
-Traitement (80%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes.
+Traitement (70%) : Transformation des données brutes en tableau structuré et nettoyage des colonnes.
 
 Visualisation (10%) : Commentaires et interprétations complémentaires sur les graphiques.
